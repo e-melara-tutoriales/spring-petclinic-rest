@@ -6,10 +6,29 @@ pipeline {
     }
 
     stages {
-        stage('mvn clean') {
+        stage('Compile') {
             steps {
-               sh 'mvn clean'
+               sh 'mvn clean compile'
             }
+        }
+        stage('Test') {
+            steps {
+                sh "mvn test -B -ntp"
+                junit "target/surefire-reports/*.xml"
+                jacoco()
+            }
+        }
+        stage('Package') {
+            steps {
+                sh 'mvn package -DskipTests -B -ntp'
+            }
+        }
+    }
+
+    post {
+        always {
+            archiveArtifacts artifacts: "target/*.jar", fingerprint: true
+            cleanWs()
         }
     }
 }
