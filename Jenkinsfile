@@ -1,8 +1,8 @@
 pipeline {
-    agent any
-
-    tools {
-        maven 'maven3.8.8'
+    agent {
+        docker {
+            image "maven:3.8.8-eclipse-temurin-17-alpine"
+        }
     }
 
     stages {
