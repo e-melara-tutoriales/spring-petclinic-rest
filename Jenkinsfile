@@ -1,7 +1,7 @@
 pipeline {
     agent {
         docker {
-            image "maven:3.8.8-eclipse-temurin-17-alpine"
+            image "maven:3.8.8-eclipse-temurin-17"
         }
     }
 
@@ -25,10 +25,10 @@ pipeline {
         }
     }
 
-    post {
-        always {
+    // post {
+    //     always {
             //archiveArtifacts artifacts: "target/*.jar", fingerprint: true
-            cleanWs()
-        }
-    }
+    //         cleanWs()
+    //     }
+    // }
 }
